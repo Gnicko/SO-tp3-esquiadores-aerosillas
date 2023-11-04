@@ -45,7 +45,7 @@ public class BarreraDeAcceso {
             aerosillas.get(0).subirEsquiador(e);
         }
         esquiadores.clear();
-        System.out.println("Ya subieron todos los esquiadores a la silla :" + aerosillas.get(0).getId());
+        System.out.println("Ya subieron todos los esquiadores a la Aerosilla :" + aerosillas.get(0).getId());
 
     }
 

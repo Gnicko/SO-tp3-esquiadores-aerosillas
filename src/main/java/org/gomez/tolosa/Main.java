@@ -33,7 +33,7 @@ public class Main {
                 throw new RuntimeException(e);
             }
         }
-        //este for no se va a dar porque las aerosillas quedan en un bucle infinito
+        //este for no se va a dar porque las aerosillas quedan en un bucle infinito en el run
         for (Thread t : aerosillasThreads) {
             try {
                 t.join();
