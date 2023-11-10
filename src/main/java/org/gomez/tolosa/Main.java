@@ -8,13 +8,15 @@ public class Main {
 
 
         Semaphore sEsquiadores = new Semaphore(4);
-        BarreraDeAcceso barreraDeAccesoInferior = new BarreraDeAcceso(sEsquiadores);
-        BarreraDeAcceso barreraDeAccesoSuperior = new BarreraDeAcceso(sEsquiadores);
+        Semaphore sAerosilla = new Semaphore(0);
+        BarreraDeAcceso barreraDeAccesoInferior = new BarreraDeAcceso(sEsquiadores, sAerosilla);
+        BarreraDeAcceso barreraDeAccesoSuperior = new BarreraDeAcceso(sEsquiadores, sAerosilla);
+
 
         ArrayList<Thread> esquiadoresThreads = new ArrayList<>();
         ArrayList<Thread> aerosillasThreads = new ArrayList<>();
         for (int i = 0; i < 13; i++) {
-            Thread t = new Thread(new Esquiador(i, sEsquiadores, barreraDeAccesoInferior));
+            Thread t = new Thread(new Esquiador(i, sEsquiadores, sAerosilla, barreraDeAccesoInferior));
             esquiadoresThreads.add(t);
             t.start();
         }

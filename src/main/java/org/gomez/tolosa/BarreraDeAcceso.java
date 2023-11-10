@@ -6,10 +6,11 @@ import java.util.concurrent.Semaphore;
 public class BarreraDeAcceso {
     private ArrayList<Aerosilla> aerosillas;
     private ArrayList<Esquiador> esquiadores;
-    private Semaphore sEsquiadores, sAceesoSuperior;
+    private Semaphore sEsquiadores, sAceesoSuperior, sAerosilla;
 
-    public BarreraDeAcceso(Semaphore sEsquiadores) {
+    public BarreraDeAcceso(Semaphore sEsquiadores, Semaphore sAerosilla) {
         this.sEsquiadores = sEsquiadores;
+        this.sAerosilla = sAerosilla;
         this.aerosillas = new ArrayList<>();
         this.esquiadores = new ArrayList<>();
         this.sAceesoSuperior = new Semaphore(1);
@@ -17,6 +18,9 @@ public class BarreraDeAcceso {
 
     public synchronized void setAerosilla(Aerosilla aerosilla) {
         this.aerosillas.add(aerosilla);
+        for (int i = 0; i < 4; i++) {
+            sAerosilla.release();//liberar aerosilla para que suban 4 esquiadores
+        }
     }
 
 
@@ -40,7 +44,7 @@ public class BarreraDeAcceso {
         if (esquiadores.isEmpty()) {
             throw new RuntimeException("No hay aerosillas disponibles para subir a los esquiadores");
         }
-        System.out.println("Subiendo 4 esquiadores a la silla :" + aerosillas.get(0).getId());
+        System.out.println("Subiendo 4 esquiadores a la Aerosilla :" + aerosillas.get(0).getId());
         for (Esquiador e : esquiadores) {
             aerosillas.get(0).subirEsquiador(e);
         }
